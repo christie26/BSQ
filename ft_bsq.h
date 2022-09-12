@@ -6,7 +6,7 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:13:23 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/12 14:47:54 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:36:54 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	ft_putint(int nb);
 void	ft_putnbr(int nb);
 void	ft_putstr(char *str);
 int		ft_strlen(char *str);
-int		ft_atoi(char *str);
 char	**ft_split(char *str, char *charset);
+void	ft_basecamp(char *buf);
 
 typedef struct s_info
 {
@@ -37,7 +37,6 @@ typedef struct s_info
 	char	ful;
 	int		line;
 	int		valid;
-	char	*buf;
 }	t_info;
 
 
