@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dp.c                                               :+:      :+:    :+:   */
+/*   ft_dp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wmo <wmo@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 21:14:11 by wmo               #+#    #+#             */
-/*   Updated: 2022/09/12 23:43:08 by wmo              ###   ########.fr       */
+/*   Updated: 2022/09/13 00:25:33 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	**init_dp(char **tab, int **d, t_info info)
 	return (d);
 }
 
-char	**ft_dpdp(char **tab, int **d, t_info *info, t_point *p)
+int	**ft_dpdp(char **tab, int **d, t_info *info, t_point *p)
 {
 	int	i;
 	int	j;
@@ -59,7 +59,7 @@ char	**ft_dpdp(char **tab, int **d, t_info *info, t_point *p)
 				if (d[i][j] > p->max)
 				{
 					p->max = d[i][j];
-					p.->max_row = i;
+					p->max_row = i;
 					p->max_col = j;
 				}
 			}
@@ -80,11 +80,11 @@ char	**ft_dp(char **tab, int **d, t_info info)
 	p.max_col = 0;
 	p.max = 0;
 	d = ft_dpdp(tab, d, &info, &p);
-	i = p.max_row - (p.max - 1);
+	i = p.max_row - p.max;
 	while (i <= p.max_row)
 	{
-		j = p.max_col - (p.max - 1);
-		while (j <= p.max_row)
+		j = p.max_col - p.max;
+		while (j <= p.max_col)
 		{
 			tab[i][j] = info.ful;
 			j++;

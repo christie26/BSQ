@@ -6,7 +6,7 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:13:23 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/12 23:32:18 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/13 00:15:25 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ typedef struct s_point
 }	t_point;
 
 void	ft_putchar(char c);
-int		ft_min(int a, int b, int c);
 void	ft_putnbr(int nb);
 void	ft_putstr(char *str);
 int		ft_strlen(char *str);
 char	**ft_split(char *str, char *charset);
 void	ft_basecamp(char *buf);
 int		ft_validmap(char **tab, t_info info, char *buf);
+char	**ft_dp(char **tab, int **d, t_info info);
 
 #endif
