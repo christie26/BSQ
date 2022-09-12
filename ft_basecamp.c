@@ -6,7 +6,7 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:09:00 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/12 17:35:47 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/12 23:28:51 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,6 @@ int	is_num(char c)
 		return (1);
 	else
 		return (0);
-}
-
-void	ft_checkinfo(int valid, char *buf)
-{
-	if (valid == 0)
-	{
-		write(2, "map error\n", 10);
-		free(buf);
-		exit (1);
-	}
 }
 
 void	tmp_print_tab(char **tab, int line)
@@ -51,9 +41,6 @@ char	*ft_getinfo(char *buf, t_info *info)
 	info->emp = *(buf++);
 	info->obs = *(buf++);
 	info->ful = *(buf++);
-	if (info->emp == info->obs || info->obs == info->ful
-		|| info->ful == info->emp || info->line == 0)
-		info->valid = 0;
 	if (*buf == '\n')
 		buf++;
 	else
@@ -61,17 +48,38 @@ char	*ft_getinfo(char *buf, t_info *info)
 	return (buf);
 }
 
+char	**ft_emptyd(int row, int col)
+{
+	char	**d;
+	int		i;
+
+	d = (char **)malloc(sizeof(char *) * row);
+	i = 0;
+	while (i < row)
+	{
+		d[i] = (char *)malloc(sizeof(char) * col);
+		i++;
+	}
+	return (d);
+}
+
 void	ft_basecamp(char *buf)
 {
 	t_info	info;
 	char	**tab;
+	char	**d;
 	char	*tmp;
+	int		col;
 
 	info.valid = 1;
 	info.line = 0;
 	tmp = buf;
 	buf = ft_getinfo(buf, &info);
-	ft_checkinfo(info.valid, tmp);
 	tab = ft_split(buf, "\n");
+	col = ft_validmap(tab, info, tmp);
+	d = ft_emptyd(info.line, col);
 	tmp_print_tab(tab, info.line);
+//	ft_wmo(tab, info, d);
 }
+// ft_wmo(char **tab, int **d, t_info info);
+// d is empty 2 dimension int array whose size is same as tab.

@@ -6,7 +6,7 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:48:49 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/12 13:52:10 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/12 23:27:00 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@ void	ft_putchar(char c)
 	write (1, &c, 1);
 }
 
-void	ft_putint(int nb)
+int	ft_min(int a, int b, int c)
 {
-	char	c;
-
-	c = nb + '0';
-	write(1, &c, 1);
+	if (a > b)
+		a = b;
+	if (a > c)
+		a = c;
+	return (a);
 }
 
 void	ft_putnbr(int nb)
 {
 	unsigned int	new;
 	int				mod;
+	char			c;
 
 	if (nb < 0)
 	{
@@ -41,7 +43,8 @@ void	ft_putnbr(int nb)
 		new /= 10;
 		ft_putnbr(new);
 	}
-	ft_putint(mod);
+	c = mod + '0';
+	write(1, &c, 1);
 }
 
 void	ft_putstr(char *str)

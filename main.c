@@ -6,7 +6,7 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:35:29 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/12 17:35:32 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/12 23:32:09 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	main(int argc, char **argv)
 	char	c;
 	char	*buf;
 
-	(void) argc;
+	if (argc == 1)
+		return (0);
 	fd1 = open(argv[1], O_RDONLY);
 	fd2 = open(argv[1], O_RDONLY);
 	if (fd1 == -1 || fd2 == -1)
