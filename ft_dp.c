@@ -6,7 +6,7 @@
 /*   By: wmo <wmo@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 21:14:11 by wmo               #+#    #+#             */
-/*   Updated: 2022/09/13 00:25:33 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:55:04 by wmo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,23 @@ int	min(int a, int b, int c)
 	if (a > c)
 		a = c;
 	return (a);
+}
+
+int	check_tab(char **tab, int i, int j, t_info *info)
+{
+		if (i == 0 && j == 0 && \
+				(tab[i][j] == info->obs || tab[i][j - 1] == info->obs))
+			return (0);
+		else if (i == 0 && \
+				(tab[i][j] == info->obs || tab[i][j - 1] == info->obs))
+			return (0);
+		else if (j == 0 && (tab[i][j] == info->obs || \
+					tab[i - 1][j] == info->obs\))
+			return (0);
+		else if ((tab[i][j] != info->obs && tab[i - 1][j - 1] != info->obs &&\
+					tab[i - 1][j] != info->obs && tab[i][j - 1] != info->obs))
+			return (0);
+		return (1);
 }
 
 int	**init_dp(char **tab, int **d, t_info info)
@@ -69,7 +86,7 @@ int	**ft_dpdp(char **tab, int **d, t_info *info, t_point *p)
 	}
 	return (d);
 }
-
+#include <stdio.h>
 char	**ft_dp(char **tab, int **d, t_info info)
 {
 	int	i;
@@ -79,14 +96,18 @@ char	**ft_dp(char **tab, int **d, t_info info)
 	p.max_row = 0;
 	p.max_col = 0;
 	p.max = 0;
+	d = init_dp(tab, d, info);
 	d = ft_dpdp(tab, d, &info, &p);
-	i = p.max_row - p.max;
+	i = p.max_row - (p.max - 1);
+	j = p.max_col - (p.max - 1);
+	printf("%d %d\n", i, j);
 	while (i <= p.max_row)
 	{
-		j = p.max_col - p.max;
+		j = p.max_col - (p.max - 1);
 		while (j <= p.max_col)
 		{
-			tab[i][j] = info.ful;
+			if (d[i][j])
+				tab[i][j] = info.ful;
 			j++;
 		}
 		i++;
