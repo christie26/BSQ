@@ -6,79 +6,57 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:09:00 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/13 00:20:54 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/13 16:05:38 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	is_num(char c)
+int	ft_check_info(t_info info)
 {
-	if ('0' <= c && c <= '9')
+	if (!(is_printable(info.emp) && is_printable(info.obs)
+		&& is_printable(info.ful)))
+		return (0);
+	if (info.emp == info.obs || info.obs == info.ful
+		|| info.ful == info.emp || info.line == 0)
+		return (0);
+	return (1);
+}
+
+int	ft_getinfo(int fd, t_info *info)
+{
+	char	c;
+
+	while (read(fd, &c, 1) > 0 && is_num(c))
+		info->line = info->line * 10 + c - '0';
+	if (read(fd, &c, 1) > 0)
+		info->emp = c;
+	if (read(fd, &c, 1) > 0)
+		info->obs = c;
+	if (read(fd, &c, 1) > 0)
+		info->ful = c;
+	if (ft_check_info(*info))
 		return (1);
 	else
 		return (0);
 }
-
-void	ft_print_tab(char **tab, int line)
-{
-	int	i;
-
-	i = 0;
-	while (i < line)
-	{
-		ft_putstr(tab[i]);
-		ft_putchar('\n');
-		i++;
-	}
-}
-
-char	*ft_getinfo(char *buf, t_info *info)
-{
-	while (is_num(*(buf)))
-	{
-		info->line = info->line * 10 + *buf - '0';
-		buf++;
-	}
-	info->emp = *(buf++);
-	info->obs = *(buf++);
-	info->ful = *(buf++);
-	if (*buf == '\n')
-		buf++;
-	else
-		info->valid = 0;
-	return (buf);
-}
-
-int	**ft_emptyd(int row, int col)
-{
-	int	**d;
-	int	i;
-
-	d = (int **)malloc(sizeof(int *) * row);
-	i = 0;
-	while (i < row)
-	{
-		d[i] = (int *)malloc(sizeof(int) * col);
-		i++;
-	}
-	return (d);
-}
-
-void	ft_basecamp(char *buf)
+#include <stdio.h>
+void	ft_basecamp(int fd)
 {
 	t_info	info;
-	char	**tab;
-	int		**d;
-	char	*tmp;
-	int		col;
+//	char	**tab;
+//	int		**d;
+//	int		col;
 
-	info.valid = 1;
-	info.line = 0;
-	tmp = buf;
-	buf = ft_getinfo(buf, &info);
-	tab = ft_split(buf, "\n");
-	col = ft_validmap(tab, info, tmp);
-	d = ft_emptyd(info.line, col);
-	ft_print_tab(tab, info.line);
-	write(1, "\n", 1);
-	ft_print_tab(ft_dp(tab, d, info), info.line);
+	info.valid = 1;	//Q
+	info.line = 0;	//Q
+	if (ft_getinfo(fd, &info))		//get info of line, three char
+	{	
+		printf("check\n");
+//		tab = ft_split(argv, "\n");
+//		col = ft_validmap(tab, info, tmp);
+//		d = ft_emptyd(info.line, col);
+//		ft_print_tab(tab, info.line);
+//		write(1, "\n", 1);
+//		ft_print_tab(ft_dp(tab, d, info), info.line);
+	}
 }
+// argv is string here!

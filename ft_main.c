@@ -6,9 +6,11 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:35:29 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/13 15:14:23 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/13 16:04:57 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
 char	*ft_get_input(void)
 {
 	char	*buf;
@@ -45,22 +47,28 @@ char	*ft_read_file(int i, char **argv)
 	}
 	return (buf);
 }
+*/
 
 int	main(int argc, char **argv)
 {
-	int		i;
-	char	*buf;
+	int	i;
+	int	fd;
 
 	if (argc == 1)
-		buf = ft_get_input();
+		ft_basecamp(0);
 	else
 	{
 		i = 1;
 		while (i < argc)
 		{
-			buf = ft_read_file(i, argv);
-			ft_basecamp(buf);
-			free(buf);
+			fd = open(argv[i], O_RDONLY);
+			if (fd < 0)	//when we fail to read it (non-exist file)
+			{
+				write(2, "map error\n", 10);
+				return (0);	//Q
+			}
+			ft_basecamp(fd);
+			close(fd);
 			i++;
 		}
 	}

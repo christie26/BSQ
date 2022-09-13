@@ -6,7 +6,7 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:13:23 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/13 10:08:56 by wmo              ###   ########.fr       */
+/*   Updated: 2022/09/13 16:05:26 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,11 @@ void	ft_putnbr(int nb);
 void	ft_putstr(char *str);
 int		ft_strlen(char *str);
 char	**ft_split(char *str, char *charset);
-void	ft_basecamp(char *buf);
+void	ft_basecamp(int fd);
 int		ft_validmap(char **tab, t_info info, char *buf);
 char	**ft_dp(char **tab, int **d, t_info info);
+int		is_num(char c);
+int		is_printable(char c);
+void	ft_print_tab(char **tab, int line);
 
 #endif
