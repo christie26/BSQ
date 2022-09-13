@@ -6,14 +6,13 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:13:23 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/13 00:15:25 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/13 10:08:56 by wmo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_BSQ_H
 # define FT_BSQ_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/stat.h>
