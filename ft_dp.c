@@ -6,7 +6,7 @@
 /*   By: wmo <wmo@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 21:14:11 by wmo               #+#    #+#             */
-/*   Updated: 2022/09/13 22:26:07 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/13 23:43:42 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char	**ft_dp(char **tab, int **d, t_info info)
 	d = ft_dpdp(tab, d, &info, &p);
 	i = p.max_row - (p.max - 1);
 	j = p.max_col - (p.max - 1);
-	printf("%d %d\n", i, j);
 	while (i <= p.max_row)
 	{
 		j = p.max_col - (p.max - 1);
