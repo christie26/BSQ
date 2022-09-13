@@ -6,68 +6,51 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:35:29 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/13 16:04:57 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/13 22:43:47 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-char	*ft_get_input(void)
+void	ft_read_two(char *argv, int *fl, int *col)
 {
-	char	*buf;
-	read(0, &buf, 10000);
-	return (buf);
-}
-
-char	*ft_read_file(int i, char **argv)
-{
-	int		fd1;
-	int		fd2;
-	int		len;
 	char	c;
-	char	*buf;
+	int		fd;
 
-	fd1 = open(argv[i], O_RDONLY);
-	fd2 = open(argv[i], O_RDONLY);
-	if (fd1 == -1 || fd2 == -1)
+	fd = open(argv, O_RDONLY);
+	if (fd == -1)
 	{
-		write(2, "map error\n", 10);
 		exit (1);
 	}
-	else
-	{
-		len = 0;
-		while (read(fd1, &c, 1) > 0)
-			len++;
-		close(fd1);
-		buf = (char *)malloc(len * sizeof(char));
-		if (!buf)
-			return (0);
-		read(fd2, buf, len);
-		close(fd2);
-	}
-	return (buf);
+	*fl = 0;
+	*col = 0;
+	while (read(fd, &c, 1) > 0 && c != '\n')
+		(*fl)++;
+	while (read(fd, &c, 1) > 0 && c != '\n')
+		(*col)++;
+	close(fd);
 }
-*/
 
 int	main(int argc, char **argv)
 {
 	int	i;
 	int	fd;
+	int	fl;
+	int	col;
 
 	if (argc == 1)
-		ft_basecamp(0);
+		ft_basecamp_input();
 	else
 	{
 		i = 1;
 		while (i < argc)
 		{
+			ft_read_two(argv[i], &fl, &col);	
 			fd = open(argv[i], O_RDONLY);
-			if (fd < 0)	//when we fail to read it (non-exist file)
+			if (fd < 0)
 			{
-				write(2, "map error\n", 10);
-				return (0);	//Q
+//				write(2, "map error\n", 10); or wrong file?
+				return (0);//Q
 			}
-			ft_basecamp(fd);
+			ft_basecamp_file(fd, fl, col);
 			close(fd);
 			i++;
 		}

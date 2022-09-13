@@ -6,7 +6,7 @@
 /*   By: wmo <wmo@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 21:14:11 by wmo               #+#    #+#             */
-/*   Updated: 2022/09/13 15:38:19 by wmo              ###   ########.fr       */
+/*   Updated: 2022/09/13 22:26:07 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	**init_dp(char **tab, int **d, t_info info, t_point *p)
 	int	j;
 
 	i = 0;
-	while (i < info.line)
+	while (i < info.row)
 	{
 		j = 0;
 		while (tab[i][j])
@@ -53,7 +53,7 @@ int	**ft_dpdp(char **tab, int **d, t_info *info, t_point *p)
 	int	j;
 
 	i = 1;
-	while (i < info->line)
+	while (i < info->row)
 	{
 		j = 1;
 		while (tab[i][j])
@@ -78,8 +78,8 @@ int	**ft_dpdp(char **tab, int **d, t_info *info, t_point *p)
 
 char	**ft_dp(char **tab, int **d, t_info info)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	t_point	p;
 
 	p.max_row = 0;

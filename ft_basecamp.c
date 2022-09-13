@@ -6,79 +6,80 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:09:00 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/13 00:20:54 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/13 23:30:49 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	is_num(char c)
-{
-	if ('0' <= c && c <= '9')
-		return (1);
-	else
-		return (0);
-}
-
-void	ft_print_tab(char **tab, int line)
+void	ft_check_line(char *str, t_info info)
 {
 	int	i;
 
 	i = 0;
-	while (i < line)
+	while (str[i] != '\n')
 	{
-		ft_putstr(tab[i]);
-		ft_putchar('\n');
+		if (!(is_good(str[i], info)))
+			error();
 		i++;
 	}
 }
 
-char	*ft_getinfo(char *buf, t_info *info)
-{
-	while (is_num(*(buf)))
-	{
-		info->line = info->line * 10 + *buf - '0';
-		buf++;
-	}
-	info->emp = *(buf++);
-	info->obs = *(buf++);
-	info->ful = *(buf++);
-	if (*buf == '\n')
-		buf++;
-	else
-		info->valid = 0;
-	return (buf);
-}
-
-int	**ft_emptyd(int row, int col)
-{
-	int	**d;
-	int	i;
-
-	d = (int **)malloc(sizeof(int *) * row);
-	i = 0;
-	while (i < row)
-	{
-		d[i] = (int *)malloc(sizeof(int) * col);
-		i++;
-	}
-	return (d);
-}
-
-void	ft_basecamp(char *buf)
+void	ft_basecamp_file(int fd, int fl, int col)
 {
 	t_info	info;
+	char	*buf;
+	int		i;
 	char	**tab;
 	int		**d;
-	char	*tmp;
-	int		col;
+	char	c;
 
-	info.valid = 1;
-	info.line = 0;
-	tmp = buf;
-	buf = ft_getinfo(buf, &info);
-	tab = ft_split(buf, "\n");
-	col = ft_validmap(tab, info, tmp);
-	d = ft_emptyd(info.line, col);
-	ft_print_tab(tab, info.line);
-	write(1, "\n", 1);
-	ft_print_tab(ft_dp(tab, d, info), info.line);
+	buf = (char *)malloc(sizeof(char) * (fl));
+	if (!buf)
+		return ;
+	read(fd, buf, fl);
+	ft_getinfo(fl, buf, &info);
+	info.col = col;
+	tab = make_table(info);
+	i = 0;
+	read(fd, &c, 1);
+	while (i < info.row)
+	{
+		ft_fill_line(fd, tab, i, info);
+		i++;
+	}
+	d = make_d(info);
+	tab = ft_dp(tab, d, info);
+	ft_print_tab(tab, info.row);
+}
+
+void	ft_basecamp_input(void)
+{
+	t_info	info;
+	char	buf1[4096];
+	char	buf2[4096];
+	int		i;
+	char	**tab;
+	int		**d;
+
+	read(STDIN_FILENO, buf1, sizeof(buf1));
+	i = 0;
+	while (buf1[i] != '\n')
+		i++;
+	ft_getinfo(i, buf1, &info);
+	read(STDIN_FILENO, buf2, sizeof(buf2));
+	i = 0;
+	while (buf2[i] != '\n')
+		i++;
+	info.col = i;
+	ft_check_line(buf2, info);
+	tab = make_table(info);
+	ft_strcpy(tab[0], buf2);
+	i = 1;
+	while (i < info.row)
+	{
+		ft_fill_line(STDIN_FILENO, tab, i, info);
+		i++;
+	}
+	d = make_d(info);
+	tab = ft_dp(tab, d, info);
+	ft_print_tab(tab, info.row);
 }

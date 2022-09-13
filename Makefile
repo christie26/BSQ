@@ -6,11 +6,11 @@
 #    By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:30:39 by yoonsele          #+#    #+#              #
-#    Updated: 2022/09/13 15:48:16 by yoonsele         ###   ########.fr        #
+#    Updated: 2022/09/13 23:33:23 by yoonsele         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ft_main.c ft_functions.c ft_func2.c ft_split.c ft_basecamp2.c ft_validmap2.c ft_dp.c 
+SRCS		= ft_main.c ft_func1.c ft_func2.c ft_basecamp.c ft_dp.c ft_strcpy.c ft_common.c
 OBJS		= ${SRCS:.c=.o}
 
 HEADER		= ft_bsq.h
