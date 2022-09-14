@@ -6,14 +6,14 @@
 #    By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/14 19:33:41 by yoonsele          #+#    #+#              #
-#    Updated: 2022/09/14 20:35:46 by yoonsele         ###   ########.fr        #
+#    Updated: 2022/09/14 21:01:55 by yoonsele         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ft_new_main.c ft_validmap.c ft_func1.c ft_func2.c ft_split.c ft_strncpy.c ft_dp.c 
+SRCS		= srcs/ft_main.c srcs/ft_validmap.c srcs/ft_func1.c srcs/ft_func2.c srcs/ft_split.c srcs/ft_strncpy.c srcs/ft_dp.c 
 OBJS		= ${SRCS:.c=.o}
 
-HEADER		= ft_bsq2.h
+HEADER		= include/ft_bsq.h
 NAME		= bsq
 
 CC			= gcc

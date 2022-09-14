@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_main.c                                      :+:      :+:    :+:   */
+/*   ft_validmap.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 19:11:18 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/14 20:48:18 by yoonsele         ###   ########.fr       */
+/*   Created: 2022/09/14 20:04:02 by yoonsele          #+#    #+#             */
+/*   Updated: 2022/09/14 21:59:54 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_check_info(t_info info)
+int	ft_check_info(t_info info)
 {
 	if (!(is_printable(info.emp) && is_printable(info.obs)
 			&& is_printable(info.ful)))
-		error();
+		return (1);
 	if (info.emp == info.obs || info.obs == info.ful
 		|| info.ful == info.emp || info.row == 0)
-		error();
-	return ;
+		return (1);
+	return (0);
 }
 
 int	ft_getinfo(char *fl, int len, t_info *info)
@@ -43,7 +43,7 @@ int	ft_getinfo(char *fl, int len, t_info *info)
 		return (0);
 }
 
-char	*ft_getfl(char *buf, t_info *info, int *flag)
+char	*ft_getfl(char *buf, t_info *info)
 {
 	int		i;
 	int		len;
@@ -57,83 +57,57 @@ char	*ft_getfl(char *buf, t_info *info, int *flag)
 	if (!fl)
 		return (0);
 	ft_strncpy(fl, buf, len);
-	*flag = 0;
+	info->flag = 0;
 	if (ft_getinfo(fl, len, info))
-		*flag = 1;
+		info->flag = 1;
 	buf += len;
 	return (buf);
 }
 
-void	make_buffer(char *filename, int len)
+int	ft_check_tab(char **tab, t_info info)
 {
-	int		fd;
-	int		flag;
-	char	*buf;
-	char	*tmp;
-	char	**tab;
-	int		**d;
-	t_info	info;
+	int	i;
+	int	j;
 
-	buf = (char *)malloc(sizeof(char) * (len + 1));
-	if (!buf)
-		return ;//Q
-	fd = open(filename, O_RDONLY);
-	read(fd, buf, len);
-	buf[len] = 0;
-	close(fd);
-	tmp = buf;
-	buf = ft_getfl(buf, &info, &flag);
-	tab = ft_split(buf, "\n");
-	free(tmp);
-	if (flag)
-		error();
-	ft_check_info(info);
-	info.col = ft_validmap(tab, info);
-	d = ft_make_d(info);
-	tab = ft_dp(tab, d, info);
-	ft_print_tab(tab, info.row);
-}
-
-void	get_stdin(void)
-{
-	int		fd;
-	char	c;
-	int		i;
-
-	i = 0;
-	fd = open(NEW_FILE, O_WRONLY | O_CREAT, 0644);
-	while (read(STDIN_FILENO, &c, 1) != 0)
+	i = 1;
+	j = 0;
+	while (tab[i])
 	{
-		write(fd, &c, 1);
+		j = 0;
+		while (tab[i][j])
+		{
+			if (!(is_good(tab[i][j], info)))
+				return (1);
+			j++;
+		}
+		if (j != info.col)
+			return (1);
 		i++;
 	}
-	close (fd);
-	make_buffer(NEW_FILE, i);
+	if (i != info.row)
+		return (1);
+	return (0);
 }
 
-int	main(int argc, char **argv)
+int	ft_validmap(char **tab, t_info info)
 {
-	int		fd;
-	int		i;
-	int		len;
-	char	c;
+	int	j;
 
-	if (argc == 1)
-		get_stdin();
-	else
+	j = 0;
+	while (tab[0][j])
 	{
-		i = 1;
-		while (i < argc)
+		if (!(is_good(tab[0][j], info)))
 		{
-			fd = open(argv[i], O_RDONLY);
-			if (fd == -1)
-				return (1);// Q
-			len = 0;
-			while (read(fd, &c, 1) > 0)
-				len++;
-			close(fd);
-			make_buffer(argv[i], len);
-			i++;
+			free(tab);
+			error();
 		}
-	}	
+		j++;
+	}
+	info.col = j;
+	if (ft_check_tab(tab, info))
+	{
+		free(tab);
+		error();
+	}
+	return (info.col);
 }
