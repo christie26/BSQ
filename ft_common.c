@@ -6,7 +6,7 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 22:09:59 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/13 23:30:43 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:38:59 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@ char	**make_table(t_info info)
 	char	**tab;
 	int		i;
 
-	tab = (char **)malloc(sizeof(char *) * (info.row + 1));
+	tab = (char **)malloc(sizeof(char *) * (info.row + 100));
 	if (!tab)
 		return (0);
 	i = 0;
 	while (i < info.row)
 	{
-		tab[i] = (char *)malloc(sizeof(char) * (info.col + 1));
+		tab[i] = (char *)malloc(sizeof(char) * (info.col + 100));
 		if (!(tab[i]))
 			return (0);
 		i++;
@@ -79,14 +79,28 @@ void	ft_getinfo(int size, char *buf, t_info *info)
 	else
 		error();
 }
+/*
+int	ft_fill_line(int fd, char **tab, int i, t_info info)
+{
+	int		j;
 
-void	ft_fill_line(int fd, char **tab, int i, t_info info)
+	j = 0;
+	while (read(fd, &tab[i][j], 1) > 0 && is_good(tab[i][j], info))
+		j++;
+	printf("i%dj%d\n",i,j);
+	if (j != info.col)
+	//	error();
+		ft_putstr("hap");
+	return (1);
+}
+*/
+
+int	ft_fill_line(int fd, char **tab, int i, t_info info)
 {
 	int		j;
 	char	c;
 
 	j = 0;
-
 	while (j < info.col)
 	{
 		if (read(fd, &tab[i][j], 1) > 0 && is_good(tab[i][j], info))
@@ -97,4 +111,5 @@ void	ft_fill_line(int fd, char **tab, int i, t_info info)
 	read (fd, &c, 1);
 	if (c != '\n')
 		error();
+	return (1);
 }

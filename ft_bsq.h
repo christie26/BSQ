@@ -6,7 +6,7 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:13:23 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/13 22:20:00 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/14 17:59:11 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <unistd.h>
-# define FAIL_OPEN "Failed to open the file.\n"
 
 typedef struct s_info
 {
@@ -57,6 +56,6 @@ char	**make_table(t_info info);
 int		**make_d(t_info info);
 void	error(void);
 void	ft_getinfo(int size, char *buf, t_info *info);
-void	ft_fill_line(int fd, char **taab, int i, t_info info);
+int		ft_fill_line(int fd, char **taab, int i, t_info info);
 
 #endif

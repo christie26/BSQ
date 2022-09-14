@@ -6,7 +6,7 @@
 /*   By: yoonsele <yoonsele@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:09:00 by yoonsele          #+#    #+#             */
-/*   Updated: 2022/09/13 23:30:49 by yoonsele         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:36:51 by yoonsele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_basecamp_input(void)
 	int		i;
 	char	**tab;
 	int		**d;
+	char	c;
 
 	read(STDIN_FILENO, buf1, sizeof(buf1));
 	i = 0;
@@ -79,7 +80,18 @@ void	ft_basecamp_input(void)
 		ft_fill_line(STDIN_FILENO, tab, i, info);
 		i++;
 	}
-	d = make_d(info);
-	tab = ft_dp(tab, d, info);
-	ft_print_tab(tab, info.row);
+	read(STDIN_FILENO, &c, 1);
+	if (c != EOF)
+		ft_putstr("ee");
+//	while (ft_fill_line(STDIN_FILENO, tab, i, info) == 1)
+//		i++;
+//	if (i == info.row)
+//	{
+		d = make_d(info);
+		tab = ft_dp(tab, d, info);
+		ft_print_tab(tab, info.row);
+//	}
+//	else
+//		ft_putstr("happy");
+//		error();
 }
